@@ -36,7 +36,7 @@ foreach (KeyValuePair<int, string> item in paises)
   Console.WriteLine("Código {0} = {1}", codigo, pais);
 }
 
-Console.WriteLine("Digite o código do país que deseja saber o DDI");
+Console.WriteLine("Digite o nome do país que deseja saber o DDI");
 string paisBusca = Console.ReadLine();
 int codigoBusca = 0;
 foreach (KeyValuePair<int, string> item in paises)
