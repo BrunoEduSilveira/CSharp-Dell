@@ -43,12 +43,12 @@ string paisBusca = Console.ReadLine();
 int codigoBusca = 0;
 foreach (KeyValuePair<int, string> item in paises)
 {
-  if(String.Equals(paisBusca.ToUpper(), item.Value.ToUpper()))
+  if (String.Equals(paisBusca.ToUpper(), item.Value.ToUpper()))
     codigoBusca = item.Key;
 }
-if(codigoBusca < 1) 
+if (codigoBusca < 1)
   Console.WriteLine("País não encontrado.");
-else 
+else
   Console.WriteLine("Código {0} = {1}", codigoBusca, paises[codigoBusca]);
 Console.WriteLine("---------------------------");
 
@@ -56,18 +56,19 @@ Random numAleatorio = new Random();
 List<int> listaNrReais = new List<int>();
 
 // popular lista;
-for(int p = 0; p < 10; p++)
-  listaNrReais.Add(numAleatorio.Next(1,500));
+for (int p = 0; p < 10; p++)
+  listaNrReais.Add(numAleatorio.Next(1, 500));
 
 // Metodo TotalAcimaMedia
-int totalAcimaMedia(List<int> listaNrReais){
+int totalAcimaMedia(List<int> listaNrReais)
+{
   int qtdNrAcimaDaMedia = 0;
   int media = listaNrReais.Sum() / listaNrReais.Count();
 
   foreach (var nrReal in listaNrReais)
   {
-    if(nrReal > media)
-      qtdNrAcimaDaMedia ++;
+    if (nrReal > media)
+      qtdNrAcimaDaMedia++;
   }
 
   return qtdNrAcimaDaMedia;
@@ -84,7 +85,7 @@ List<int> ListaAcimaMedia(List<int> listaNrReais)
 
   foreach (var nrReal in listaNrReais)
   {
-    if(nrReal > media)
+    if (nrReal > media)
       listaAcimaMedia.Add(nrReal);
   }
 
