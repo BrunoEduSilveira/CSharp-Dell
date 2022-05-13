@@ -15,3 +15,6 @@ minhaConta.Depositar(16);
 Console.WriteLine($"7) Deposito (16)  - Saldo: {minhaConta.Saldo}");
 Console.WriteLine($"Saldo médio das operações: {minhaConta.SaldoMedioCorrentista}");
 Console.WriteLine("100+50+150+100+85+118+134 = ( 737 / 7 ) = 105.28571428571428571428571429");
+
+Console.WriteLine("----------------------------");
+Console.WriteLine($"Data de criação da conta: {minhaConta.DataCriacao}");
