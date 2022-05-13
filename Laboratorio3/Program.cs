@@ -1,4 +1,6 @@
-﻿List<string> listaStrings = new List<string>();
+﻿using System.Text;
+
+List<string> listaStrings = new List<string>();
 listaStrings.Add("Um");
 listaStrings.Add("Hello");
 listaStrings.Add("World");
@@ -35,7 +37,7 @@ foreach (KeyValuePair<int, string> item in paises)
   string pais = item.Value;
   Console.WriteLine("Código {0} = {1}", codigo, pais);
 }
-
+Console.WriteLine("---------------------------");
 Console.WriteLine("Digite o nome do país que deseja saber o DDI");
 string paisBusca = Console.ReadLine();
 int codigoBusca = 0;
@@ -48,4 +50,53 @@ if(codigoBusca < 1)
   Console.WriteLine("País não encontrado.");
 else 
   Console.WriteLine("Código {0} = {1}", codigoBusca, paises[codigoBusca]);
+Console.WriteLine("---------------------------");
 
+Random numAleatorio = new Random();
+List<int> listaNrReais = new List<int>();
+
+// popular lista;
+for(int p = 0; p < 10; p++)
+  listaNrReais.Add(numAleatorio.Next(1,500));
+
+// Metodo TotalAcimaMedia
+int totalAcimaMedia(List<int> listaNrReais){
+  int qtdNrAcimaDaMedia = 0;
+  int media = listaNrReais.Sum() / listaNrReais.Count();
+
+  foreach (var nrReal in listaNrReais)
+  {
+    if(nrReal > media)
+      qtdNrAcimaDaMedia ++;
+  }
+
+  return qtdNrAcimaDaMedia;
+}
+
+Console.WriteLine("Quantidade de elementos acima da média: {0}", totalAcimaMedia(listaNrReais));
+
+Console.WriteLine("---------------------------");
+
+List<int> ListaAcimaMedia(List<int> listaNrReais)
+{
+  List<int> listaAcimaMedia = new List<int>();
+  int media = listaNrReais.Sum() / listaNrReais.Count();
+
+  foreach (var nrReal in listaNrReais)
+  {
+    if(nrReal > media)
+      listaAcimaMedia.Add(nrReal);
+  }
+
+  return listaAcimaMedia;
+}
+
+Console.WriteLine("Elementos acima da média:");
+
+StringBuilder textoElementosAcimaMedia = new StringBuilder();
+foreach (var elementoLista in ListaAcimaMedia(listaNrReais))
+{
+  textoElementosAcimaMedia.Append($"[{elementoLista}]");
+}
+Console.WriteLine(textoElementosAcimaMedia);
+Console.WriteLine("---------------------------");
