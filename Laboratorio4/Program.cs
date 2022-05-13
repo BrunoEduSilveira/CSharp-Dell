@@ -1,9 +1,17 @@
-﻿ContaCorrente minhaConta = new ContaCorrente();
+﻿ContaCorrente minhaConta = new ContaCorrente("Bruno");
 minhaConta.Depositar(100);
+Console.WriteLine($"1) Deposito (100) - Saldo: {minhaConta.Saldo}");
 minhaConta.Sacar(50);
-
-Console.WriteLine(minhaConta.Saldo);
+Console.WriteLine($"2) Saque    (50)  - Saldo: {minhaConta.Saldo}");
 minhaConta.Depositar(100);
-Console.WriteLine(minhaConta.Saldo);
+Console.WriteLine($"3) Deposito (100) - Saldo: {minhaConta.Saldo}");
 minhaConta.Sacar(50);
-Console.WriteLine(minhaConta.Saldo);
+Console.WriteLine($"4) Saque    (50)  - Saldo: {minhaConta.Saldo}");
+minhaConta.Sacar(15);
+Console.WriteLine($"5) Saque    (15)  - Saldo: {minhaConta.Saldo}");
+minhaConta.Depositar(33);
+Console.WriteLine($"6) Deposito (33)  - Saldo: {minhaConta.Saldo}");
+minhaConta.Depositar(16);
+Console.WriteLine($"7) Deposito (16)  - Saldo: {minhaConta.Saldo}");
+Console.WriteLine($"Saldo médio das operações: {minhaConta.SaldoMedioCorrentista}");
+Console.WriteLine("100+50+150+100+85+118+134 = ( 737 / 7 ) = 105.28571428571428571428571429");
