@@ -29,7 +29,7 @@ public class TermometroLimite : Termometro
     {
       if(LimiteSuperiorEvent != null)
       {
-        LimiteSuperiorEvent("Atenção: temperatura acima do limite!!!");
+        LimiteSuperiorEvent($"Atenção: temperatura está acima do limite!!! [{valor}°C]");
         disparadoEventoLimiteSuperior = true;
       }  
     }
@@ -41,7 +41,7 @@ public class TermometroLimite : Termometro
     {
       if(TemperaturaNormalEvent != null)
       {
-        TemperaturaNormalEvent("A tempeatura voltou ao normal.");
+        TemperaturaNormalEvent($"A tempeatura voltou ao normal. [{valor}°C]");
         disparadoEventoLimiteSuperior = false;
       }
     }

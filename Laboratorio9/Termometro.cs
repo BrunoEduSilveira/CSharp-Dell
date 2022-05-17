@@ -1,6 +1,6 @@
 public class Termometro
 {
-  private double valor;
+  protected double valor;
 
   public Termometro()
   {
