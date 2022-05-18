@@ -45,7 +45,7 @@ var linq4 =
 
 foreach (var p in linq4)
 {
-  Console.WriteLine($"Nome: {p.Nome}, Data de Nascimento: {p.DataNascimento}");
+  Console.WriteLine($"Nome: {p.Nome}, Data de Nascimento: {p.DataNascimento.ToShortDateString()}");
 }
 
 var linq5 =
@@ -56,5 +56,5 @@ var linq5 =
 
 foreach (var p in linq5)
 {
-  Console.WriteLine($"Nome: {p.Nome}, Data de Nascimento: {p.DataNascimento}");
+  Console.WriteLine(p);
 }
