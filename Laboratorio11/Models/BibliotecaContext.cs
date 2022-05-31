@@ -57,16 +57,23 @@ public class BibliotecaContext : DbContext
             .IsRequired();
 
       entityBuilder.Property(e => e.DataDevolucao)
-            .IsRequired(false);
+            .IsRequired();
     });
 
-    modelBuilder.Entity<Livro>()
-      .HasMany(e => e.Autores)
-      .WithMany(e => e.Livros)
-      .UsingEntity<LivroAutor>();
+    modelBuilder.Entity<Autor>()
+      .HasMany(e => e.Livros)
+      .WithMany(e => e.Autores)
+      .UsingEntity<LivroAutor>()
+      .HasKey(e => new { e.AutorId, e.LivroId });
 
     modelBuilder.Entity<Livro>()
       .HasMany(e => e.Emprestimo)
       .WithOne(e => e.Livro);
+  }
+
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+    optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=Laboratorio11;Integrated Security=True");
+    optionsBuilder.EnableSensitiveDataLogging().LogTo(Console.WriteLine);
   }
 }

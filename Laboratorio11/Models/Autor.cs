@@ -4,7 +4,8 @@ public class Autor
   public int Id { get; set; }
   public string PrimeiroNome { get; set; } = null!;
   public string UltimoNome { get; set; } = null!;
-  public IEnumerable<Livro>? Livros { get; set; }
+  public ICollection<Livro>? Livros { get; set; }
+  public List<LivroAutor> LivrosAutores {get;set;} = null!;
 
   public Autor()
   {
