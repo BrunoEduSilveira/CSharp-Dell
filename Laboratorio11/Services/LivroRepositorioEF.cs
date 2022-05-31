@@ -20,12 +20,18 @@ public class LivroRepositorioEF : ILivroRepositorio
   }
   public async Task<IEnumerable<Livro>> GetAllAsync()
   {
-    return await _context.Livros.ToArrayAsync();
+    return await _context.Livros.ToListAsync();
   }
 
   public async Task<IEnumerable<Livro>> GetAsync(int autorId)
   {
-    return await _context.Livros.Where(e => e.Id == autorId).ToArrayAsync();
+    return await _context.Livros.Join(_context.LivroAutor,
+      l => l.Id,
+      la => la.LivroId,
+      (l, la) => new { Livro = l, LivroAutor = la })
+      .Where(la => la.LivroAutor.AutorId == autorId)
+      .Select(la => la.Livro)
+      .ToListAsync();
   }
 
   public async Task<Livro> AddAsync(Livro livro)

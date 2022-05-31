@@ -4,7 +4,7 @@ public class Emprestimo
   public int Id { get; set; }
   public DateTime DataEmprestimo { get; set; }
   public DateTime DataDevolucao { get; set; }
-  public bool entregue { get; set; }
+  public bool Entregue { get; set; }
   public Livro Livro { get; set; } = null!;
 
   public Emprestimo()
@@ -15,7 +15,7 @@ public class Emprestimo
     Id = id;
     DataEmprestimo = dataEmprestimo;
     DataDevolucao = dataDevolucao;
-    this.entregue = entregue;
+    Entregue = entregue;
     Livro = livro;
   }
 }

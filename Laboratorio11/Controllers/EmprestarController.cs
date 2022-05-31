@@ -4,6 +4,8 @@ using Laboratorio11.Services;
 
 namespace Laboratorio11.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class EmprestarController : ControllerBase
 {
   private readonly ILogger<DevolverController> _logger;
@@ -22,16 +24,28 @@ public class EmprestarController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  [Route("emprestar/{id}")]
-  public async Task<IActionResult> EmprestarLivro(int id)
+  public async Task<ActionResult<Livro>> EmprestarLivro(int id)
   {
-    var livro = await _livroRepositorio.GetOneAsync(id);
-    if (livro == null)
-      return NotFound("Livro não encontrado");
+    try
+    {
+      var livro = await _livroRepositorio.GetOneAsync(id);
+      if (livro is null)
+        return NotFound("Livro não encontrado");
 
-    var emprestimo = new Emprestimo(0, DateTime.Now, DateTime.Now.AddDays(7), false, livro);
-    await _emprestimoRepositorio.AddAsync(emprestimo);
+      // object cycle - Livro.Emprestimos - Emprestimo.Livro - fazer DTO(?)
+      var novoEmprestimo = new Emprestimo(0, DateTime.Now, DateTime.Now.AddDays(7), false, livro);
+      var livroExiste = await _emprestimoRepositorio.GetAsync(livro.Id);
+      if(livroExiste is not null)
+      {
+        return Conflict("Livro já emprestado");
+      }
+      await _emprestimoRepositorio.AddAsync(novoEmprestimo);
 
-    return Ok(emprestimo);
+      return Ok(novoEmprestimo);
+    }
+    catch (System.Exception)
+    {
+      return BadRequest();
+    }
   }
 }
