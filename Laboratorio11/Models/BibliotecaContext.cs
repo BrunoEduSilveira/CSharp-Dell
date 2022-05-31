@@ -20,44 +20,53 @@ public class BibliotecaContext : DbContext
   {
     modelBuilder.Entity<Livro>(entityBuilder =>
     {
-      entityBuilder.Property(livro => livro.Id)
+      entityBuilder.Property(e => e.Id)
                 .IsRequired()
                 .UseIdentityColumn()
                 .ValueGeneratedOnAdd();
 
-      entityBuilder.Property(livro => livro.Titulo)
+      entityBuilder.Property(e => e.Titulo)
             .IsRequired()
             .HasMaxLength(200);
     });
 
     modelBuilder.Entity<Autor>(entityBuilder =>
     {
-      entityBuilder.Property(autor => autor.Id)
+      entityBuilder.Property(e => e.Id)
                 .IsRequired()
                 .UseIdentityColumn()
                 .ValueGeneratedOnAdd();
 
-      entityBuilder.Property(autor => autor.PrimeiroNome)
+      entityBuilder.Property(e => e.PrimeiroNome)
             .IsRequired()
             .HasMaxLength(100);
 
-      entityBuilder.Property(autor => autor.UltimoNome)
+      entityBuilder.Property(e => e.UltimoNome)
             .IsRequired()
             .HasMaxLength(100);
     });
 
     modelBuilder.Entity<Emprestimo>(entityBuilder =>
     {
-      entityBuilder.Property(emprestimo => emprestimo.Id)
+      entityBuilder.Property(e => e.Id)
                 .IsRequired()
                 .UseIdentityColumn()
                 .ValueGeneratedOnAdd();
 
-      entityBuilder.Property(emprestimo => emprestimo.DataEmprestimo)
+      entityBuilder.Property(e => e.DataEmprestimo)
             .IsRequired();
 
-      entityBuilder.Property(emprestimo => emprestimo.DataDevolucao)
+      entityBuilder.Property(e => e.DataDevolucao)
             .IsRequired(false);
     });
+
+    modelBuilder.Entity<Livro>()
+      .HasMany(e => e.Autores)
+      .WithMany(e => e.Livros)
+      .UsingEntity<LivroAutor>();
+
+    modelBuilder.Entity<Livro>()
+      .HasMany(e => e.Emprestimo)
+      .WithOne(e => e.Livro);
   }
 }

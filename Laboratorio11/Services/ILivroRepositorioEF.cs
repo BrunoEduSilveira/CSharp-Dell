@@ -11,6 +11,13 @@ public class ILivroRepositorioEF : ILivroRepositorio
     _context = context;
   }
 
+  public async Task<Livro> GetOneAsync(int id)
+  {
+    var livro = await _context.Livros.FindAsync(id);
+    if (livro is null)
+      throw new Exception("Livro não encontrado");
+    return livro;
+  }
   public async Task<IEnumerable<Livro>> GetAllAsync()
   {
     return await _context.Livros.ToArrayAsync();

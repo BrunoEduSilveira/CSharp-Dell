@@ -4,6 +4,8 @@ public class Livro
     public int Id { get; set; }
     public string Titulo { get; set; } = null!;
     public IEnumerable<Autor>? Autores { get; set; }
+    public IEnumerable<Emprestimo> Emprestimo { get; set; } = null!;
+
     public Livro()
     {
     }
