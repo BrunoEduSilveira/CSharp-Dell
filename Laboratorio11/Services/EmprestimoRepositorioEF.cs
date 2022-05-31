@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Laboratorio11.Services;
 
-public class IEmprestimoRepositorioEF : IEmprestimoRepositorio
+public class EmprestimoRepositorioEF : IEmprestimoRepositorio
 {
   private readonly BibliotecaContext _context;
-  public IEmprestimoRepositorioEF(BibliotecaContext context)
+  public EmprestimoRepositorioEF(BibliotecaContext context)
   {
     _context = context;
   }

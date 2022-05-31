@@ -31,7 +31,7 @@ public class ConsultaController : ControllerBase
   {
     var livros = await _livroRepositorio.GetAsync(id);
     if (livros.Count() == 0)
-      return NotFound("Livro não encontrado");
+      return NotFound("Nenhum livro não encontrado");
 
     IEnumerable<Emprestimo> listaEmprestimos = new List<Emprestimo>();
     foreach (var livro in livros)
