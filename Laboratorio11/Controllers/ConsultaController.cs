@@ -26,22 +26,29 @@ public class ConsultaController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  [Route("{consultar}/{id}")]
+  [Route("consultar/{id}")]
   public async Task<IActionResult> ConsultaLivros(int id)
   {
-    var livros = await _livroRepositorio.GetAsync(id);
-    if (livros.Count() == 0)
-      return NotFound("Nenhum livro não encontrado");
-
-    IEnumerable<Emprestimo> listaEmprestimos = new List<Emprestimo>();
-    foreach (var livro in livros)
+    try
     {
-      var emprestimos = await _emprestimoRepositorio.GetAsync(livro.Id);
-      listaEmprestimos = listaEmprestimos.Concat(new [] {emprestimos});
-    }
-    
-    (IEnumerable<Livro>, IEnumerable<Emprestimo>) t = (livros, listaEmprestimos);
+      var livros = await _livroRepositorio.GetAsync(id);
+      if (livros.Count() == 0)
+        return NotFound("Nenhum livro não encontrado");
 
-    return Ok(t);
+      IEnumerable<Emprestimo> listaEmprestimos = new List<Emprestimo>();
+      foreach (var livro in livros)
+      {
+        var emprestimos = await _emprestimoRepositorio.GetAsync(livro.Id);
+        listaEmprestimos = listaEmprestimos.Concat(new[] { emprestimos });
+      }
+
+      (IEnumerable<Livro>, IEnumerable<Emprestimo>) t = (livros, listaEmprestimos);
+
+      return Ok(t);
+    }
+    catch (System.Exception)
+    {
+      return BadRequest();
+    }
   }
 }

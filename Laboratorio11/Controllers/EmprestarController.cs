@@ -22,7 +22,7 @@ public class EmprestarController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  [Route("{emprestar}/{id}")]
+  [Route("emprestar/{id}")]
   public async Task<IActionResult> EmprestarLivro(int id)
   {
     var livro = await _livroRepositorio.GetOneAsync(id);
