@@ -27,9 +27,9 @@ public class EmprestimoRepositorioEF : IEmprestimoRepositorio
 
   public async Task<Emprestimo> GetAsync(int livroID)
   {
-    var resultado = await _context.Emprestimos.Where(e => e.Livro.Id == livroID).FirstAsync();
-    if (resultado is null)
-      throw new Exception("Emprestimo não encontrado");
-    return resultado;
+    var retorno =  await _context.Emprestimos.Where(e => e.Livro.Id == livroID).FirstOrDefaultAsync();
+    if(retorno is null)
+      return null;
+    return retorno;
   }
 }

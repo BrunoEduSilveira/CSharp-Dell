@@ -24,34 +24,34 @@ public class ConsultaController : ControllerBase
 
   // test get all
   [HttpGet]
-  public Task<IEnumerable<Livro>> GetAll()
+  public Task<IEnumerable<Livro>> GetAllLivros()
   {
     return _livroRepositorio.GetAllAsync();
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<IEnumerable<LivroEmprestimoDTO>>> ConsultarLivro(int id)
+  public async Task<ActionResult<ICollection<LivroEmprestimoDTO>>> ConsultarLivroEmprestado(int id)
   {
     try
     {
+      var listaLivroEmprestimoDTO = new List<LivroEmprestimoDTO>();
       var livros = await _livroRepositorio.GetAsync(id);
       if (livros.Count() == 0)
-        return NotFound("Nenhum livro não encontrado");
-
-      var listaLivroEmprestimoDTO = new List<LivroEmprestimoDTO>();
+        return NotFound("Nenhum livro não encontrado [1]");
 
       foreach (var livro in livros)
       {
-        //var emprestimos = await _emprestimoRepositorio.GetAsync(livro.Id);
-        var livroEmprestimoDTO = new LivroEmprestimoDTO(livro.Titulo, null, false);
-        listaLivroEmprestimoDTO.Add(livroEmprestimoDTO);
-
+        var emprestimo = await _emprestimoRepositorio.GetAsync(livro.Id);
+        if (emprestimo is null)
+          listaLivroEmprestimoDTO.Add(new LivroEmprestimoDTO(livro.Titulo, null, true));
+        else
+          listaLivroEmprestimoDTO.Add(new LivroEmprestimoDTO(livro.Titulo, emprestimo.Entregue?  null : emprestimo.DataDevolucao.Date, emprestimo.Entregue? true : false));
       }
       return listaLivroEmprestimoDTO;
     }
-    catch (System.Exception)
+    catch (Exception)
     {
-      return BadRequest("Erro ao consultar livro");
+      return BadRequest("Erro ao consultar livro [2]");
     }
   }
 }

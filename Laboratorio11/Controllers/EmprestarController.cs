@@ -34,18 +34,20 @@ public class EmprestarController : ControllerBase
 
       // object cycle - Livro.Emprestimos - Emprestimo.Livro - fazer DTO(?)
       var novoEmprestimo = new Emprestimo(0, DateTime.Now, DateTime.Now.AddDays(7), false, livro);
-      var livroExiste = await _emprestimoRepositorio.GetAsync(livro.Id);
-      if(livroExiste is not null)
+      var emprestimo = await _emprestimoRepositorio.GetAsync(livro.Id);
+      if(emprestimo is null)
       {
-        return Conflict("Livro já emprestado");
-      }
-      await _emprestimoRepositorio.AddAsync(novoEmprestimo);
+        await _emprestimoRepositorio.AddAsync(novoEmprestimo);
 
-      return Ok(novoEmprestimo);
+        return Ok(novoEmprestimo);
+      }
+      else
+        return Conflict("Livro já emprestado");
+      
     }
-    catch (System.Exception)
+    catch (System.Exception ex)
     {
-      return BadRequest();
+      return BadRequest(ex.Message);
     }
   }
 }
