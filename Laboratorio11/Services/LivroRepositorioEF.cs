@@ -25,13 +25,15 @@ public class LivroRepositorioEF : ILivroRepositorio
 
   public async Task<IEnumerable<Livro>> GetAsync(int autorId)
   {
-    return await _context.Livros.Join(_context.LivroAutor,
-      l => l.Id,
-      la => la.LivroId,
-      (l, la) => new { Livro = l, LivroAutor = la })
-      .Where(la => la.LivroAutor.AutorId == autorId)
-      .Select(la => la.Livro)
-      .ToListAsync();
+
+    var livros = await _context.LivroAutor
+    .Include(p => p.Livro)
+    .Include(p => p.Autor)
+    .Where(p => p.Autor.Id == autorId)
+    .Select(p => p.Livro)
+    .ToListAsync();
+
+    return livros;
   }
 
   public async Task<Livro> AddAsync(Livro livro)

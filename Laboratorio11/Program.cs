@@ -15,6 +15,12 @@ builder.Services.AddScoped<IAutoresRepositorio, AutoresRepositorioEF>();
 builder.Services.AddScoped<ILivroRepositorio, LivroRepositorioEF>();
 builder.Services.AddScoped<IEmprestimoRepositorio, EmprestimoRepositorioEF>();
 
+// Object Cycle - https://stackoverflow.com/questions/59199593/net-core-3-0-possible-object-cycle-was-detected-which-is-not-supported
+// https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/
+// builder.Services.AddControllers().AddNewtonsoftJson(options =>
+//     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+// );
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -25,11 +25,9 @@ public class EmprestimoRepositorioEF : IEmprestimoRepositorio
     return emprestimo;
   }
 
-  public async Task<Emprestimo> GetAsync(int livroID)
+  public async Task<Emprestimo?> GetAsync(int livroID)
   {
     var retorno =  await _context.Emprestimos.Where(e => e.Livro.Id == livroID).FirstOrDefaultAsync();
-    if(retorno is null)
-      return null;
     return retorno;
   }
 }
