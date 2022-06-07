@@ -9,12 +9,12 @@ namespace Laboratorio11.Controllers;
 [Route("[controller]")]
 public class ConsultaController : ControllerBase
 {
-  private readonly ILogger<DevolverController> _logger;
+  private readonly ILogger<DevolucaoController> _logger;
   private readonly IAutoresRepositorio _autoresRepositorio;
   private readonly ILivroRepositorio _livroRepositorio;
   private readonly IEmprestimoRepositorio _emprestimoRepositorio;
 
-  public ConsultaController(ILogger<DevolverController> logger, BibliotecaContext context, IAutoresRepositorio autoresRepositorio, ILivroRepositorio livroRepositorio, IEmprestimoRepositorio emprestimoRepositorio)
+  public ConsultaController(ILogger<DevolucaoController> logger, BibliotecaContext context, IAutoresRepositorio autoresRepositorio, ILivroRepositorio livroRepositorio, IEmprestimoRepositorio emprestimoRepositorio)
   {
     _logger = logger;
     _autoresRepositorio = autoresRepositorio;
@@ -23,13 +23,13 @@ public class ConsultaController : ControllerBase
   }
 
   // test get all
-  [HttpGet]
+  [HttpGet] // .../api/consulta
   public Task<IEnumerable<Livro>> GetAllLivros()
   {
     return _livroRepositorio.GetAllAsync();
   }
 
-  [HttpGet("{id}")]
+  [HttpGet("{id}")] // .../api/consulta/{id autor}
   public async Task<ActionResult<ICollection<LivroEmprestimoDTO>>> ConsultarLivroEmprestado(int id)
   {
     try

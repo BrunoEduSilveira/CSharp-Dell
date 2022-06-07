@@ -8,13 +8,13 @@ namespace Laboratorio11.Controllers;
 [Route("[controller]")]
 public class EmprestimoController : ControllerBase
 {
-  private readonly ILogger<DevolverController> _logger;
+  private readonly ILogger<DevolucaoController> _logger;
   private readonly BibliotecaContext _context;
   private readonly IAutoresRepositorio _autoresRepositorio;
   private readonly ILivroRepositorio _livroRepositorio;
   private readonly IEmprestimoRepositorio _emprestimoRepositorio;
 
-  public EmprestimoController(ILogger<DevolverController> logger, BibliotecaContext context, IAutoresRepositorio autoresRepositorio, ILivroRepositorio livroRepositorio, IEmprestimoRepositorio emprestimoRepositorio)
+  public EmprestimoController(ILogger<DevolucaoController> logger, BibliotecaContext context, IAutoresRepositorio autoresRepositorio, ILivroRepositorio livroRepositorio, IEmprestimoRepositorio emprestimoRepositorio)
   {
     _logger = logger;
     _context = context;
@@ -23,7 +23,7 @@ public class EmprestimoController : ControllerBase
     _emprestimoRepositorio = emprestimoRepositorio;
   }
 
-  [HttpPut("{id}")]
+  [HttpPut("{id}")] // .../api/emprestimo/{id livro}
   public async Task<ActionResult<Livro>> EmprestarLivro(int id)
   {
     try
