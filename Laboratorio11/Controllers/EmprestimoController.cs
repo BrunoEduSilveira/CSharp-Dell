@@ -34,7 +34,7 @@ public class EmprestimoController : ControllerBase
 
       var novoEmprestimo = new Emprestimo(0, DateTime.Now, DateTime.Now.AddDays(7), false, livro);
       var emprestimo = await _emprestimoRepositorio.GetAsync(livro.Id);
-      if(emprestimo is null)
+      if(emprestimo is null || emprestimo.Entregue)
       {
         await _emprestimoRepositorio.AddAsync(novoEmprestimo);
 

@@ -27,7 +27,7 @@ public class EmprestimoRepositorioEF : IEmprestimoRepositorio
 
   public async Task<Emprestimo?> GetAsync(int livroID)
   {
-    var retorno =  await _context.Emprestimos.Where(e => e.Livro.Id == livroID).FirstOrDefaultAsync();
+    var retorno =  await _context.Emprestimos.Where(e => e.Livro.Id == livroID).OrderBy(e => e.DataEmprestimo).LastOrDefaultAsync();
     return retorno;
   }
 }
